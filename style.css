@@ -1,0 +1,58 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.5rem;
+}
+
+html,
+body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#formJogos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 200px;
+}
+
+
+button {
+    width: 300px;
+}
+
+#resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#resultado > p {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.resultado-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.resultado-cor {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #000;
+}
