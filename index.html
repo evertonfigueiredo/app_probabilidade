@@ -12,76 +12,24 @@
     <div id="container">
         <h1>Previsão de Resultados</h1>
 
-        <h2>Selecione os vencedores dos jogos:</h2>
-        <form id="formJogos">
-            <select name="jogo1" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <!-- Outros 9 selects iguais para os demais jogos -->
-            <select name="jogo2" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <select name="jogo3" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <select name="jogo4" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <select name="jogo5" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <select name="jogo6" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <select name="jogo7" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <select name="jogo8" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <select name="jogo9" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <!-- ... adicione mais 8 selects ... -->
-            <select name="jogo10" onchange="verificarSelecoes()">
-                <option value="" disabled selected>Escolha uma opção</option>
-                <option value="Vermelho">Vermelho</option>
-                <option value="Preto">Preto</option>
-                <option value="Zero">Zero</option>
-            </select>
-            <br>
-            <button type="button" onclick="calcularPrevisao()" id="btnCalcular" disabled>Calcular</button>
-            <button type="button" onclick="reiniciarSelects()">Reiniciar</button>
-        </form>
+        <div class="center gap10" id="gerador">
+            <label for="">Numero de jogos a ser analisados:</label>
+            <input type="number" id="numero_select">
+            <button onclick="gerar()">Criar campos</button>
+        </div>
 
-        <div id="resultado"></div>
+        <div class="center" id="calculos">
+            <h2>Selecione os vencedores dos jogos:</h2>
+            <form id="formJogos">
+
+                <br>
+                <button type="button" onclick="calcularPrevisao()" id="btnCalcular" disabled>Calcular</button>
+                <button type="button" onclick="reiniciarSelects()">Reiniciar</button>
+            </form>
+
+            <div id="resultado"></div>
+        </div>
+
 
     </div>
 

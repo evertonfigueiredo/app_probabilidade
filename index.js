@@ -26,24 +26,25 @@ function preverResultado(probabilidade_time_Vermelho, probabilidade_time_Preto, 
 }
 
 function calcularPrevisao() {
+    let numeroSelects = document.querySelector("#numero_select").value
     let form = document.getElementById('formJogos');
     let jogos_anteriores = [];
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= numeroSelects; i++) {
         let select = form.elements[`jogo${i}`];
         jogos_anteriores.push(select.value);
     }
 
     let [prob_time_Vermelho, prob_time_Preto, prob_Zero] = calcularProbabilidade(jogos_anteriores);
-    let [resultado_11_jogo, probabilidade] = preverResultado(prob_time_Vermelho, prob_time_Preto, prob_Zero);
+    let [resultado_jogo, probabilidade] = preverResultado(prob_time_Vermelho, prob_time_Preto, prob_Zero);
 
     let resultadoDiv = document.getElementById('resultado');
-    if (resultado_11_jogo === "Indefinido") {
-        resultadoDiv.innerHTML = `<p>Previsão para o 11º: '${resultado_11_jogo}'</p>`
+    if (resultado_jogo === "Indefinido") {
+        resultadoDiv.innerHTML = `<p>Previsão para o ${parseInt(numeroSelects) + 1}º: '${resultado_jogo}'</p>`
         let btnCalcular = document.getElementById('btnCalcular');
         btnCalcular.disabled = true
     } else {
-        resultadoDiv.innerHTML = `<p>Previsão para o 11º: '${resultado_11_jogo}' com ${probabilidade.toFixed(2)}%</p>`
+        resultadoDiv.innerHTML = `<p>Previsão para o ${parseInt(numeroSelects) + 1}º: '${resultado_jogo}' com ${probabilidade.toFixed(2)}%</p>`
     }
     resultadoDiv.innerHTML += `<p>Vermelho ganhar: ${prob_time_Vermelho.toFixed(2)}%</p>
                               <p>Preto ganhar: ${prob_time_Preto.toFixed(2)}%</p>
@@ -53,7 +54,7 @@ function calcularPrevisao() {
     if (probabilidade > 60) {
         // Adicionar quadrado com a cor correspondente e porcentagem ao lado do resultado
         let cor = "";
-        switch (resultado_11_jogo) {
+        switch (resultado_jogo) {
             case 'Vermelho':
                 cor = "red";
                 break;
@@ -84,15 +85,16 @@ function calcularPrevisao() {
         resultadoDiv.insertBefore(resultadoInfoDiv, first);
     }
     
-    for (let i = 1; i < 10; i++) {
-        form.elements[`jogo${i}`].value = form.elements[`jogo${i + 1}`].value;
+    for (let i = numeroSelects; i > 1; i--) {
+        form.elements[`jogo${i}`].value = form.elements[`jogo${i - 1}`].value;
     }
-    form.elements[`jogo10`].value = resultado_11_jogo;
+    console.log(numeroSelects);
+    form.elements[`jogo1`].value = resultado_jogo;
 }
 
-function reiniciarSelects() {
+function reiniciarSelects(numeroSelects) {
     let form = document.getElementById('formJogos');
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= numeroSelects; i++) {
         let select = form.elements[`jogo${i}`];
         select.selectedIndex = 0; // Define o índice do select para a opção inicial vazia
     }
@@ -108,8 +110,8 @@ function verificarSelecoes() {
     let form = document.getElementById('formJogos');
     let btnCalcular = document.getElementById('btnCalcular');
     let selecionado = true;
-
-    for (let i = 1; i <= 10; i++) {
+    let numeroSelects = document.querySelector("#numero_select").value
+    for (let i = 1; i <= numeroSelects; i++) {
         let select = form.elements[`jogo${i}`];
         if (select.value === "") {
             selecionado = false;
@@ -120,4 +122,50 @@ function verificarSelecoes() {
     btnCalcular.disabled = !selecionado;
 }
 
-verificarSelecoes();
+function criarSelects(numeroSelects) {
+    var form = document.getElementById("formJogos");
+
+    for (var i = 1; i <= numeroSelects; i++) {
+      var select = document.createElement("select");
+      select.name = "jogo" + i;
+      select.setAttribute("onchange", "verificarSelecoes()");
+
+      var optionEscolha = document.createElement("option");
+      optionEscolha.value = "";
+      optionEscolha.textContent = "Escolha uma opção";
+      optionEscolha.disabled = true;
+      optionEscolha.selected = true;
+
+      var optionVermelho = document.createElement("option");
+      optionVermelho.value = "Vermelho";
+      optionVermelho.textContent = "Vermelho";
+
+      var optionPreto = document.createElement("option");
+      optionPreto.value = "Preto";
+      optionPreto.textContent = "Preto";
+
+      var optionZero = document.createElement("option");
+      optionZero.value = "Zero";
+      optionZero.textContent = "Zero";
+
+      select.appendChild(optionEscolha);
+      select.appendChild(optionVermelho);
+      select.appendChild(optionPreto);
+      select.appendChild(optionZero);
+    
+      let first = form.firstChild;
+      form.insertBefore(select, first);
+    }
+  }
+
+document.querySelector("#calculos").style.display = 'none'
+
+function gerar() {
+    document.querySelector("#gerador").style.display = 'none'
+    document.querySelector("#calculos").style.display = 'flex'
+    let numeroSelects = document.querySelector("#numero_select").value
+    criarSelects(numeroSelects);
+    verificarSelecoes();
+}
+
+
