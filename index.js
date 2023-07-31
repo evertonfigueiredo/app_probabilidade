@@ -50,8 +50,9 @@ function calcularPrevisao() {
                               <p>Preto ganhar: ${prob_time_Preto.toFixed(2)}%</p>
                               <p>Zero ganhar: ${prob_Zero.toFixed(2)}%</p>`;
     
+    let porcentagem = document.querySelector("#porcentagem_sinal").value
 
-    if (probabilidade > 53) {
+    if (probabilidade > porcentagem) {
         // Adicionar quadrado com a cor correspondente e porcentagem ao lado do resultado
         let cor = "";
         switch (resultado_jogo) {
