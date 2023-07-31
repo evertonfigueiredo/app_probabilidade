@@ -51,7 +51,7 @@ function calcularPrevisao() {
                               <p>Zero ganhar: ${prob_Zero.toFixed(2)}%</p>`;
     
 
-    if (probabilidade > 60) {
+    if (probabilidade > 53) {
         // Adicionar quadrado com a cor correspondente e porcentagem ao lado do resultado
         let cor = "";
         switch (resultado_jogo) {
