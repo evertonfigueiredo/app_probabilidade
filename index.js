@@ -65,7 +65,7 @@ function calcularPrevisao() {
                 cor = "red";
                 break;
             case 'Compra':
-                cor = "black";
+                cor = "green";
                 break;
             case 'Doji':
                 cor = "white";
