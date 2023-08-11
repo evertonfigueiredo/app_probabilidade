@@ -1,7 +1,7 @@
 function calcularProbabilidade(jogos_anteriores) {
-    let vitorias_time_Vermelho = jogos_anteriores.filter(time => time === 'Vermelho').length;
-    let vitorias_time_Preto = jogos_anteriores.filter(time => time === 'Preto').length;
-    let empates = jogos_anteriores.filter(time => time === 'Zero').length;
+    let vitorias_time_Vermelho = jogos_anteriores.filter(time => time === 'Venda').length;
+    let vitorias_time_Preto = jogos_anteriores.filter(time => time === 'Compra').length;
+    let empates = jogos_anteriores.filter(time => time === 'Doji').length;
 
     let total_jogos = jogos_anteriores.length + 2; // Somamos 2 para incluir os pesos dos empates e times Vermelho e Preto.
 
@@ -14,19 +14,20 @@ function calcularProbabilidade(jogos_anteriores) {
 
 function preverResultado(probabilidade_time_Vermelho, probabilidade_time_Preto, probabilidade_Zero) {
     if (probabilidade_time_Vermelho > probabilidade_time_Preto && probabilidade_time_Vermelho > probabilidade_Zero) {
-        return ["Vermelho", probabilidade_time_Vermelho]
+        return ["Venda", probabilidade_time_Vermelho]
     }
     if (probabilidade_time_Preto > probabilidade_time_Vermelho && probabilidade_time_Preto > probabilidade_Zero) {
-        return ["Preto", probabilidade_time_Preto]
+        return ["Compra", probabilidade_time_Preto]
     }
     if (probabilidade_Zero > probabilidade_time_Preto && probabilidade_Zero > probabilidade_time_Vermelho) {
-        return ["Zero", probabilidade_Zero]
+        return ["Doji", probabilidade_Zero]
     }
     return ["Indefinido", 0.00]
 }
 
 function calcularPrevisao() {
-    let numeroSelects = document.querySelector("#numero_select").value
+    // let numeroSelects = document.querySelector("#numero_select").value
+    let numeroSelects = 7
     let form = document.getElementById('formJogos');
     let jogos_anteriores = [];
 
@@ -40,30 +41,34 @@ function calcularPrevisao() {
 
     let resultadoDiv = document.getElementById('resultado');
     if (resultado_jogo === "Indefinido") {
-        resultadoDiv.innerHTML = `<p>Previsão para o ${parseInt(numeroSelects) + 1}º: '${resultado_jogo}'</p>`
+        resultadoDiv.innerHTML = `<p>Previsão: '${resultado_jogo}'</p>`
         let btnCalcular = document.getElementById('btnCalcular');
         btnCalcular.disabled = true
     } else {
-        resultadoDiv.innerHTML = `<p>Previsão para o ${parseInt(numeroSelects) + 1}º: '${resultado_jogo}' com ${probabilidade.toFixed(2)}%</p>`
+        resultadoDiv.innerHTML = `<p>Previsão: '${resultado_jogo}' com ${probabilidade.toFixed(2)}%</p>`
+    // }
+    // resultadoDiv.innerHTML += `<p>Vermelho ganhar: ${prob_time_Vermelho.toFixed(2)}%</p>
+    //                           <p>Preto ganhar: ${prob_time_Preto.toFixed(2)}%</p>
+    //                           <p>Zero ganhar: ${prob_Zero.toFixed(2)}%</p>`;
+    // 
+    resultadoDiv.innerHTML += `<p>Venda: ${prob_time_Vermelho.toFixed(2)}%</p>
+                              <p>Comprar: ${prob_time_Preto.toFixed(2)}%</p>
+                              <p>Doji: ${prob_Zero.toFixed(2)}%</p>`;
     }
-    resultadoDiv.innerHTML += `<p>Vermelho ganhar: ${prob_time_Vermelho.toFixed(2)}%</p>
-                              <p>Preto ganhar: ${prob_time_Preto.toFixed(2)}%</p>
-                              <p>Zero ganhar: ${prob_Zero.toFixed(2)}%</p>`;
-    
     let porcentagem = document.querySelector("#porcentagem_sinal").value
 
     if (probabilidade > porcentagem) {
         // Adicionar quadrado com a cor correspondente e porcentagem ao lado do resultado
         let cor = "";
         switch (resultado_jogo) {
-            case 'Vermelho':
+            case 'Venda':
                 cor = "red";
                 break;
-            case 'Preto':
+            case 'Compra':
                 cor = "black";
                 break;
-            case 'Zero':
-                cor = "green";
+            case 'Doji':
+                cor = "white";
                 break;
             default:
                 cor = "transparent";
@@ -111,7 +116,8 @@ function verificarSelecoes() {
     let form = document.getElementById('formJogos');
     let btnCalcular = document.getElementById('btnCalcular');
     let selecionado = true;
-    let numeroSelects = document.querySelector("#numero_select").value
+    let numeroSelects = 7
+    // let numeroSelects = document.querySelector("#numero_select").value
     for (let i = 1; i <= numeroSelects; i++) {
         let select = form.elements[`jogo${i}`];
         if (select.value === "") {
@@ -138,16 +144,16 @@ function criarSelects(numeroSelects) {
       optionEscolha.selected = true;
 
       var optionVermelho = document.createElement("option");
-      optionVermelho.value = "Vermelho";
-      optionVermelho.textContent = "Vermelho";
+      optionVermelho.value = "Venda";
+      optionVermelho.textContent = "Venda";
 
       var optionPreto = document.createElement("option");
-      optionPreto.value = "Preto";
-      optionPreto.textContent = "Preto";
+      optionPreto.value = "Compra";
+      optionPreto.textContent = "Compra";
 
       var optionZero = document.createElement("option");
-      optionZero.value = "Zero";
-      optionZero.textContent = "Zero";
+      optionZero.value = "Doji";
+      optionZero.textContent = "Doji";
 
       select.appendChild(optionEscolha);
       select.appendChild(optionVermelho);
@@ -159,7 +165,10 @@ function criarSelects(numeroSelects) {
     }
   }
 
-document.querySelector("#calculos").style.display = 'none'
+document.querySelector("#calculos").style.display = 'flex'
+document.querySelector("#gerador").style.display = 'none'
+criarSelects(7);
+verificarSelecoes();
 
 function gerar() {
     document.querySelector("#gerador").style.display = 'none'
