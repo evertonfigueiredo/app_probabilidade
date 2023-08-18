@@ -18,11 +18,11 @@ body {
     align-items: center;
 }
 
-.gap10{
+.gap10 {
     gap: 10px;
 }
 
-.center{
+.center {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,7 +39,17 @@ body {
 
 
 button {
+    color: #000;
+    background-color: white;
     width: 300px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
 }
 
 #resultado {
@@ -47,7 +57,8 @@ button {
     flex-direction: column;
     align-items: center;
 }
-#resultado > p {
+
+#resultado>p {
     margin-top: 10px;
     text-align: center;
 }
@@ -64,4 +75,57 @@ button {
     width: 40px;
     height: 40px;
     border: 1px solid #000;
+}
+
+/* Estilos gerais para todos os selects */
+select {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    appearance: none;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    background-color: rgb(145, 145, 145);
+}
+
+select option {
+    background-color: white;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Estilos para opções de compra */
+
+select option[value=""] {
+    background-color: white;
+    color: black;
+}
+
+select option[value="Compra"] {
+    background-color: green;
+    color: white;
+}
+
+/* Estilos para opções de venda */
+select option[value="Venda"] {
+    background-color: red;
+    color: white;
+}
+
+/* Estilos para opções de doji */
+select option[value="Doji"] {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+/* Atualizar cor de fundo do select com base na opção selecionada */
+select:focus {
+    background-color: var(--selected-option-background);
 }

@@ -112,7 +112,11 @@ function reiniciarSelects(numeroSelects) {
     btnCalcular.disabled = true; // Desabilita o botão de calcular novamente até que todas as seleções sejam feitas
 }
 
-function verificarSelecoes() {
+function verificarSelecoes(selectElement) {
+    if (selectElement) {
+        selectElement.style.backgroundColor = getComputedStyle(selectElement.options[selectElement.selectedIndex]).backgroundColor;
+    }
+    
     let form = document.getElementById('formJogos');
     let btnCalcular = document.getElementById('btnCalcular');
     let selecionado = true;
@@ -135,7 +139,7 @@ function criarSelects(numeroSelects) {
     for (var i = 1; i <= numeroSelects; i++) {
       var select = document.createElement("select");
       select.name = "jogo" + i;
-      select.setAttribute("onchange", "verificarSelecoes()");
+      select.setAttribute("onchange", "verificarSelecoes(this)");
 
       var optionEscolha = document.createElement("option");
       optionEscolha.value = "";
