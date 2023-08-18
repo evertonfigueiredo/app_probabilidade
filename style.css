@@ -108,24 +108,21 @@ select option[value=""] {
     color: black;
 }
 
-select option[value="Compra"] {
+.Compra {
     background-color: green;
     color: white;
+    font-weight: bold;
 }
 
-/* Estilos para opções de venda */
-select option[value="Venda"] {
+.Venda {
     background-color: red;
     color: white;
+    font-weight: bold;
 }
 
-/* Estilos para opções de doji */
-select option[value="Doji"] {
-    background-color: rgb(0, 0, 0);
+.Doji {
+    background-color: black;
     color: white;
+    font-weight: bold;
 }
 
-/* Atualizar cor de fundo do select com base na opção selecionada */
-select:focus {
-    background-color: var(--selected-option-background);
-}

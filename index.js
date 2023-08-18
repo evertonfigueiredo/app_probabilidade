@@ -68,7 +68,7 @@ function calcularPrevisao() {
                 cor = "green";
                 break;
             case 'Doji':
-                cor = "white";
+                cor = "black";
                 break;
             default:
                 cor = "transparent";
@@ -92,10 +92,22 @@ function calcularPrevisao() {
     }
     
     for (let i = numeroSelects; i > 1; i--) {
-        form.elements[`jogo${i}`].value = form.elements[`jogo${i - 1}`].value;
+        // form.elements[`jogo${i}`].value = form.elements[`jogo${i - 1}`].value;
+
+        const currentSelect = form.elements[`jogo${i}`];
+        const previousSelect = form.elements[`jogo${i - 1}`];
+        // console.log(currentSelect);
+        // Atualizar valores
+        currentSelect.value = previousSelect.value;
+        
+        currentSelect.className = currentSelect.value;
+
+        console.log(currentSelect);
     }
+
     console.log(numeroSelects);
     form.elements[`jogo1`].value = resultado_jogo;
+    form.elements[`jogo1`].className = resultado_jogo;
 }
 
 function reiniciarSelects(numeroSelects) {
@@ -114,7 +126,7 @@ function reiniciarSelects(numeroSelects) {
 
 function verificarSelecoes(selectElement) {
     if (selectElement) {
-        selectElement.style.backgroundColor = getComputedStyle(selectElement.options[selectElement.selectedIndex]).backgroundColor;
+        selectElement.className = selectElement.value;
     }
     
     let form = document.getElementById('formJogos');
@@ -149,14 +161,17 @@ function criarSelects(numeroSelects) {
 
       var optionVermelho = document.createElement("option");
       optionVermelho.value = "Venda";
+      optionVermelho.className = "Venda"
       optionVermelho.textContent = "Venda";
 
       var optionPreto = document.createElement("option");
       optionPreto.value = "Compra";
+      optionPreto.className = "Compra";
       optionPreto.textContent = "Compra";
 
       var optionZero = document.createElement("option");
       optionZero.value = "Doji";
+      optionZero.className = "Doji";
       optionZero.textContent = "Doji";
 
       select.appendChild(optionEscolha);
